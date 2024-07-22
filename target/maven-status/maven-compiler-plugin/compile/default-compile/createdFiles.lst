@@ -1,0 +1,12 @@
+org\example\models\User.class
+org\example\models\Invoice.class
+org\example\controller\InvoiceController.class
+org\example\controller\UserController.class
+org\example\controller\AdminController.class
+org\example\InvoiceTrackingSystemApplication.class
+org\example\repository\UserRepository.class
+org\example\repository\InvoiceRepository.class
+org\example\controller\CustomerController.class
+org\example\config\SecurityConfig.class
+org\example\services\UserService.class
+org\example\services\InvoiceService.class

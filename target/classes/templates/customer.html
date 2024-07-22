@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Dashboard</title>
+</head>
+<body>
+<h1>Customer Dashboard</h1>
+
+<h2>Create Invoice</h2>
+<form action="/invoices" method="post">
+  <label for="description">Description:</label>
+  <input type="text" id="description" name="description" required>
+  <label for="amount">Amount:</label>
+  <input type="number" id="amount" name="amount" step="0.01" required>
+  <button type="submit">Create Invoice</button>
+</form>
+
+<h2>Your Invoices</h2>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Amount</th>
+    <th>Date</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="invoice : ${invoices}">
+    <td th:text="${invoice.id}"></td>
+    <td th:text="${invoice.description}"></td>
+    <td th:text="${invoice.amount}"></td>
+    <td th:text="${invoice.date}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
