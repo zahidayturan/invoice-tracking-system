@@ -30,4 +30,8 @@ public class InvoiceService {
     public void deleteInvoiceById(Long id) {
         invoiceRepository.deleteById(id);
     }
+
+    public List<Invoice> getInvoicesByCustomerName(String customerName) {
+        return invoiceRepository.findByCustomerName(customerName);
+    }
 }

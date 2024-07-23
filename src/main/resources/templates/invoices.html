@@ -4,7 +4,27 @@
   <title>Invoices</title>
 </head>
 <body>
-<h1>Invoice List</h1>
+<h1>Invoices</h1>
+
+<form th:action="@{/invoices}" th:object="${invoice}" method="post">
+  <div>
+    <label for="customerName">Customer Name:</label>
+    <input type="text" id="customerName" th:field="*{customerName}" required />
+  </div>
+  <div>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" th:field="*{amount}" required />
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <input type="text" id="description" th:field="*{description}" required />
+  </div>
+  <div>
+    <button type="submit">Add Invoice</button>
+  </div>
+</form>
+
+<hr/>
 <table>
   <thead>
   <tr>
@@ -12,12 +32,13 @@
     <th>Customer Name</th>
     <th>Amount</th>
     <th>Description</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="invoice : ${invoices}">
     <td th:text="${invoice.id}"></td>
-    <td th:text="${invoice.customerName}"></td>
+    <td><a th:href="@{/customers/{customerName}(customerName=${invoice.customerName})}" th:text="${invoice.customerName}"></a></td>
     <td th:text="${invoice.amount}"></td>
     <td th:text="${invoice.description}"></td>
     <td>
@@ -29,5 +50,8 @@
   </tr>
   </tbody>
 </table>
+
+<a href="/customers">View Customers</a>
+
 </body>
 </html>

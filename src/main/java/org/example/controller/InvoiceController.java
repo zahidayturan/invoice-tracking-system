@@ -1,13 +1,15 @@
 package org.example.controller;
 
+import org.example.model.Invoice;
 import org.example.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/invoices")
@@ -19,12 +21,19 @@ public class InvoiceController {
     @GetMapping
     public String listInvoices(Model model) {
         model.addAttribute("invoices", invoiceService.getAllInvoices());
+        model.addAttribute("invoice", new Invoice());
         return "invoices";
+    }
+
+    @PostMapping
+    public String addInvoice(Invoice invoice) {
+        invoiceService.saveInvoice(invoice);
+        return "redirect:/invoices";
     }
 
     @DeleteMapping("/{id}")
     public String deleteInvoice(@PathVariable("id") Long id) {
         invoiceService.deleteInvoiceById(id);
-        return "redirect:/invoices"; // Silme işleminden sonra liste sayfasına yönlendirir
+        return "redirect:/invoices";
     }
 }
