@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.43">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>879</IntrospectionStateNumber>
+      <IntrospectionStateNumber>914</IntrospectionStateNumber>
       <ServerVersion>14.12</ServerVersion>
       <StartupTime>1721644255</StartupTime>
       <TimeZones>true ACDT
@@ -800,7 +800,7 @@ false Zulu
 13388||10|C|G
 13388||-9223372036854775808|U|G
 13388||10|U|G</Grants>
-      <IntrospectionStateNumber>879</IntrospectionStateNumber>
+      <IntrospectionStateNumber>914</IntrospectionStateNumber>
       <ObjectId>16431</ObjectId>
       <Relations>sequence|table|16631|16632|1
 </Relations>
@@ -4240,7 +4240,7 @@ false Zulu
     <schema id="262" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>879</IntrospectionStateNumber>
+      <IntrospectionStateNumber>914</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>527</StateNumber>
       <OwnerName>postgres</OwnerName>
@@ -7643,7 +7643,7 @@ false Zulu
     <column id="512" parent="510" name="amount">
       <DataType>double precision|0s</DataType>
       <Position>2</Position>
-      <StateNumber>877</StateNumber>
+      <StateNumber>912</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <column id="513" parent="510" name="customer_name">

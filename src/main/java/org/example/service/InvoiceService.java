@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.example.model.Invoice;
 import org.example.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class InvoiceService {
     private InvoiceRepository invoiceRepository;
 
     public List<Invoice> getAllInvoices() {
-        return invoiceRepository.findAll();
+        return invoiceRepository.findAll(Sort.by(Sort.Order.asc("id")));
     }
 
     public Invoice getInvoiceById(Long id) {
