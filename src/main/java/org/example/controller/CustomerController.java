@@ -1,59 +1,36 @@
 package org.example.controller;
 
-import org.example.models.Invoice;
-import org.example.models.User;
-import org.example.services.InvoiceService;
-import org.example.services.UserService;
+import org.example.model.Customer;
+import org.example.service.CustomerService;
+import org.example.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.RequestMapping;
+import java.security.Principal;
+import java.util.Optional;
 
 @Controller
+@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
     private InvoiceService invoiceService;
 
     @Autowired
-    private UserService userService;
+    private CustomerService customerService;
 
-    @GetMapping("/customer")
-    public String customerDashboard(Model model) {
-        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        Long userId = getUserIdByUsername(username);
+    @GetMapping("/invoices")
+    public String listInvoices(Principal principal, Model model) {
+        Optional<Customer> optionalCustomer = customerService.getCustomerByUsername(principal.getName());
 
-        model.addAttribute("invoices", invoiceService.getInvoicesByUserId(userId));
-        return "customer";
-    }
-
-    @PostMapping("/customer/invoices")
-    public String createInvoice(@RequestParam String description, @RequestParam double amount) {
-        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        Long userId = getUserIdByUsername(username);
-
-        Invoice invoice = new Invoice();
-        invoice.setDescription(description);
-        invoice.setAmount(amount);
-        invoice.setDate(LocalDateTime.now());
-        invoice.setUser(userService.getUserById(userId));
-
-        invoiceService.createInvoice(invoice);
-        return "redirect:/customer";
-    }
-
-    private Long getUserIdByUsername(String username) {
-        User user = userService.findByUsername(username);
-        if (user != null) {
-            return user.getId();
+        if (optionalCustomer.isPresent()) {
+            Customer customer = optionalCustomer.get();
+            model.addAttribute("invoices", invoiceService.getInvoicesByCustomerId(customer.getId()));
+            return "customer/invoices";
         } else {
-            throw new RuntimeException("User not found");
+            return "error/customer-not-found";
         }
     }
 }
