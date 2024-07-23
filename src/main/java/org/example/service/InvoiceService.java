@@ -1,5 +1,6 @@
 package org.example.service;
 
+import jakarta.transaction.Transactional;
 import org.example.model.Invoice;
 import org.example.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,10 @@ public class InvoiceService {
 
     public Invoice saveInvoice(Invoice invoice) {
         return invoiceRepository.save(invoice);
+    }
+
+    @Transactional
+    public void deleteInvoiceById(Long id) {
+        invoiceRepository.deleteById(id);
     }
 }
