@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class CustomerController {
     public String listCustomers(Model model) {
         List<Invoice> invoices = invoiceService.getAllInvoices();
 
+        // Müşterileri ve fatura sayısını hesaplayın
         Map<String, Long> customerInvoiceCount = invoices.stream()
                 .collect(Collectors.groupingBy(Invoice::getCustomerName, Collectors.counting()));
 
@@ -36,6 +38,13 @@ public class CustomerController {
         List<Invoice> customerInvoices = invoiceService.getInvoicesByCustomerName(customerName);
         model.addAttribute("customerName", customerName);
         model.addAttribute("invoices", customerInvoices);
+        model.addAttribute("invoice", new Invoice()); // Yeni fatura nesnesini modele ekleyin
         return "customer-details";
+    }
+
+    @PostMapping
+    public String addInvoice(Invoice invoice) {
+        invoiceService.saveInvoice(invoice);
+        return "redirect:/customers/" + invoice.getCustomerName(); // Ekleme işleminden sonra müşteri detayına yönlendirir
     }
 }

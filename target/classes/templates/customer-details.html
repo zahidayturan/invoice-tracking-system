@@ -5,6 +5,7 @@
 </head>
 <body>
 <h1>Invoices for <span th:text="${customerName}"></span></h1>
+<br>
 <table>
   <thead>
   <tr>
@@ -21,7 +22,27 @@
   </tr>
   </tbody>
 </table>
+<br>
+<form th:action="@{/invoices}" th:object="${invoice}" method="post">
+  <div>
+    <label for="customerName">Customer Name: <span th:text="${customerName}"></span></label>
+    <input type="text" id="customerName" th:field="*{customerName}" th:value="${customerName}" hidden />
+  </div>
+  <div>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" th:field="*{amount}" required />
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <input type="text" id="description" th:field="*{description}" required />
+  </div>
+  <div>
+    <button type="submit">Add Invoice For <span th:text="${customerName}"></span></button>
+  </div>
+</form>
+<br>
 <a href="/customers">Back to Customers</a>
+<br>
 <a href="/invoices">Back to Invoices</a>
 </body>
 </html>
