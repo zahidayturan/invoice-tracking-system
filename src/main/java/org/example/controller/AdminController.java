@@ -1,51 +1,45 @@
 package org.example.controller;
 
 import org.example.model.Invoice;
-import org.example.service.CustomerService;
+import org.example.model.User;
 import org.example.service.InvoiceService;
+import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.util.List;
 
-@Controller
-@RequestMapping("/admin")
+@RestController
+@RequestMapping("/api/admin")
 public class AdminController {
 
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     @Autowired
     private InvoiceService invoiceService;
 
     @GetMapping("/customers")
-    public String listCustomers(Model model) {
-        model.addAttribute("customers", customerService.getAllCustomers());
-        return "admin/customers";
+    public List<User> getAllCustomers() {
+        return userService.findAll();
     }
 
-    @GetMapping("/customer/delete/{id}")
-    public String deleteCustomer(@PathVariable Long id) {
-        customerService.deleteCustomer(id);
-        return "redirect:/admin/customers";
+    @PostMapping("/customer/{customerId}/invoice")
+    public Invoice addInvoice(@PathVariable Long customerId, @RequestBody Invoice invoice) {
+        User customer = userService.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        invoice.setUser(customer);
+        return invoiceService.saveInvoice(invoice);
     }
 
-    @PostMapping("/customer/addInvoice")
-    public String addInvoice(@RequestParam Long customerId, @RequestParam String description, @RequestParam double amount) {
-        Invoice invoice = new Invoice();
-        invoice.setCustomer(customerService.getCustomerById(customerId));
-        invoice.setDescription(description);
-        invoice.setAmount(amount);
-        invoice.setDate(new Date());
-        invoiceService.saveInvoice(invoice);
-        return "redirect:/admin/customers";
+    @GetMapping("/customer/{customerId}/invoices")
+    public List<Invoice> getCustomerInvoices(@PathVariable Long customerId) {
+        return invoiceService.findByUserId(customerId);
     }
 
-    @GetMapping("/customer/invoices/{id}")
-    public String viewInvoices(@PathVariable Long id, Model model) {
-        model.addAttribute("invoices", invoiceService.getInvoicesByCustomerId(id));
-        return "admin/invoices";
+    @DeleteMapping("/customer/{customerId}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable Long customerId) {
+        userService.deleteUserById(customerId);
+        return ResponseEntity.ok("Customer deleted successfully!");
     }
 }

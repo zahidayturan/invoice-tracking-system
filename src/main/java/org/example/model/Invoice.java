@@ -8,14 +8,13 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String description;
-    private double amount;
+    private Double amount;
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     // Getters and Setters
 
@@ -51,11 +50,11 @@ public class Invoice {
         this.date = date;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

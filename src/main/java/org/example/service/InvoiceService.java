@@ -13,12 +13,12 @@ public class InvoiceService {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
-    public List<Invoice> getInvoicesByCustomerId(Long customerId) {
-        return invoiceRepository.findByCustomerId(customerId);
-    }
-
     public Invoice saveInvoice(Invoice invoice) {
         return invoiceRepository.save(invoice);
+    }
+
+    public List<Invoice> findByUserId(Long userId) {
+        return invoiceRepository.findByUserId(userId);
     }
 
     public void deleteInvoice(Long id) {
