@@ -5,10 +5,7 @@ import org.example.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -45,6 +42,23 @@ public class CustomerController {
     @PostMapping
     public String addInvoice(Invoice invoice) {
         invoiceService.saveInvoice(invoice);
-        return "redirect:/customers/" + invoice.getCustomerName(); // Ekleme işleminden sonra müşteri detayına yönlendirir
+        return "redirect:/customers/" + invoice.getCustomerName();
+    }
+
+    @PostMapping("/{customerName}/invoices/{id}/delete")
+    public String deleteInvoice(@PathVariable("customerName") String customerName, @PathVariable("id") Long id) {
+        invoiceService.deleteInvoiceById(id);
+        return "redirect:/customers/" + customerName;
+    }
+
+    @PostMapping("/{customerName}/invoices/{id}/update")
+    public String updateInvoice(@PathVariable("customerName") String customerName, @PathVariable("id") Long id, Invoice updatedInvoice) {
+        Invoice existingInvoice = invoiceService.getInvoiceById(id);
+        if (existingInvoice != null) {
+            existingInvoice.setAmount(updatedInvoice.getAmount());
+            existingInvoice.setDescription(updatedInvoice.getDescription());
+            invoiceService.saveInvoice(existingInvoice);
+        }
+        return "redirect:/customers/" + customerName;
     }
 }

@@ -12,13 +12,26 @@
     <th>ID</th>
     <th>Amount</th>
     <th>Description</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="invoice : ${invoices}">
     <td th:text="${invoice.id}"></td>
-    <td th:text="${invoice.amount}"></td>
-    <td th:text="${invoice.description}"></td>
+    <td>
+      <form th:action="@{/customers/{customerName}/invoices/{id}/update(customerName=${customerName},id=${invoice.id})}" method="post">
+        <input type="number" name="amount" th:value="${invoice.amount}" required />
+    </td>
+    <td>
+      <input type="text" name="description" th:value="${invoice.description}" required />
+    </td>
+    <td>
+      <button type="submit">Update</button>
+      </form>
+      <form th:action="@{/customers/{customerName}/invoices/{id}/delete(customerName=${customerName},id=${invoice.id})}" method="post" style="display:inline;">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
   </tr>
   </tbody>
 </table>
