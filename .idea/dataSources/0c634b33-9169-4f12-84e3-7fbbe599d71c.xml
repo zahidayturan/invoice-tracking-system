@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.43">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>801</IntrospectionStateNumber>
+      <IntrospectionStateNumber>876</IntrospectionStateNumber>
       <ServerVersion>14.12</ServerVersion>
       <StartupTime>1721644255</StartupTime>
       <TimeZones>true ACDT
@@ -800,10 +800,9 @@ false Zulu
 13388||10|C|G
 13388||-9223372036854775808|U|G
 13388||10|U|G</Grants>
-      <IntrospectionStateNumber>801</IntrospectionStateNumber>
+      <IntrospectionStateNumber>876</IntrospectionStateNumber>
       <ObjectId>16431</ObjectId>
-      <Relations>sequence|table|16491|16492|1
-sequence|table|16500|16501|1
+      <Relations>sequence|table|16631|16632|1
 </Relations>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4241,7 +4240,7 @@ sequence|table|16500|16501|1
     <schema id="262" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>801</IntrospectionStateNumber>
+      <IntrospectionStateNumber>876</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>527</StateNumber>
       <OwnerName>postgres</OwnerName>
@@ -7621,152 +7620,59 @@ sequence|table|16500|16501|1
       <StateNumber>527</StateNumber>
       <OwnerName>postgres</OwnerName>
     </schema>
-    <sequence id="509" parent="262" name="app_user_id_seq">
+    <sequence id="509" parent="262" name="invoice_id_seq">
       <DataType>bigint|0s</DataType>
-      <ObjectId>16491</ObjectId>
-      <StateNumber>796</StateNumber>
+      <ObjectId>16631</ObjectId>
+      <StateNumber>867</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="510" parent="262" name="invoice_id_seq">
-      <DataType>bigint|0s</DataType>
-      <ObjectId>16500</ObjectId>
-      <StateNumber>797</StateNumber>
-      <OwnerName>postgres</OwnerName>
-    </sequence>
-    <table id="511" parent="262" name="app_user">
-      <ObjectId>16492</ObjectId>
-      <StateNumber>799</StateNumber>
+    <table id="510" parent="262" name="invoice">
+      <ObjectId>16632</ObjectId>
+      <StateNumber>867</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="512" parent="262" name="invoice">
-      <ObjectId>16501</ObjectId>
-      <StateNumber>799</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>postgres</OwnerName>
-    </table>
-    <table id="513" parent="262" name="user_roles">
-      <ObjectId>16507</ObjectId>
-      <StateNumber>800</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>postgres</OwnerName>
-    </table>
-    <column id="514" parent="511" name="id">
-      <DataType>bigint|0s</DataType>
-      <DefaultExpression>nextval(&apos;app_user_id_seq&apos;::regclass)</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>796</StateNumber>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="515" parent="511" name="password">
-      <DataType>varchar(255)|0s</DataType>
-      <Position>2</Position>
-      <StateNumber>796</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="516" parent="511" name="username">
-      <DataType>varchar(255)|0s</DataType>
-      <Position>3</Position>
-      <StateNumber>796</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="517" parent="511" name="app_user_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16498</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>796</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="518" parent="511" name="app_user_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16499</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>796</StateNumber>
-      <UnderlyingIndexId>16498</UnderlyingIndexId>
-    </key>
-    <column id="519" parent="512" name="id">
+    <column id="511" parent="510" name="id">
       <DataType>bigint|0s</DataType>
       <DefaultExpression>nextval(&apos;invoice_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>797</StateNumber>
+      <StateNumber>867</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="520" parent="512" name="amount">
+    <column id="512" parent="510" name="amount">
       <DataType>double precision|0s</DataType>
       <Position>2</Position>
-      <StateNumber>797</StateNumber>
+      <StateNumber>875</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <column id="521" parent="512" name="date">
-      <DataType>timestamp(6)|0s</DataType>
-      <Position>3</Position>
-      <StateNumber>797</StateNumber>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="522" parent="512" name="description">
+    <column id="513" parent="510" name="customer_name">
       <DataType>varchar(255)|0s</DataType>
-      <Position>4</Position>
-      <StateNumber>797</StateNumber>
+      <Position>3</Position>
+      <StateNumber>867</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="523" parent="512" name="user_id">
-      <DataType>bigint|0s</DataType>
-      <Position>5</Position>
-      <StateNumber>797</StateNumber>
-      <TypeId>20</TypeId>
+    <column id="514" parent="510" name="description">
+      <DataType>varchar(255)|0s</DataType>
+      <Position>4</Position>
+      <StateNumber>867</StateNumber>
+      <TypeId>1043</TypeId>
     </column>
-    <foreign-key id="524" parent="512" name="fk260a4ap5h3y3txnyegq9k0j97">
-      <ColNames>user_id</ColNames>
-      <ObjectId>16510</ObjectId>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
-      <StateNumber>799</StateNumber>
-      <RefTableId>16492</RefTableId>
-      <RefTableName>app_user</RefTableName>
-      <RefTableKind>table</RefTableKind>
-    </foreign-key>
-    <index id="525" parent="512" name="invoice_pkey">
+    <index id="515" parent="510" name="invoice_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16505</ObjectId>
+      <ObjectId>16638</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>797</StateNumber>
+      <StateNumber>867</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="526" parent="512" name="invoice_pkey">
+    <key id="516" parent="510" name="invoice_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16506</ObjectId>
+      <ObjectId>16639</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>797</StateNumber>
-      <UnderlyingIndexId>16505</UnderlyingIndexId>
+      <StateNumber>867</StateNumber>
+      <UnderlyingIndexId>16638</UnderlyingIndexId>
     </key>
-    <column id="527" parent="513" name="user_id">
-      <DataType>bigint|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>798</StateNumber>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="528" parent="513" name="role">
-      <DataType>varchar(255)|0s</DataType>
-      <Position>2</Position>
-      <StateNumber>798</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <foreign-key id="529" parent="513" name="fk6fql8djp64yp4q9b3qeyhr82b">
-      <ColNames>user_id</ColNames>
-      <ObjectId>16515</ObjectId>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
-      <StateNumber>800</StateNumber>
-      <RefTableId>16492</RefTableId>
-      <RefTableName>app_user</RefTableName>
-      <RefTableKind>table</RefTableKind>
-    </foreign-key>
   </database-model>
 </dataSource>

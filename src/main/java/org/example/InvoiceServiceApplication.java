@@ -4,8 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InvoiceTrackingSystemApplication {
+public class InvoiceServiceApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(InvoiceTrackingSystemApplication.class, args);
+        SpringApplication.run(InvoiceServiceApplication.class, args);
     }
 }

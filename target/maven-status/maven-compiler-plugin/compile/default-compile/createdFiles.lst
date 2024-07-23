@@ -1,12 +1,5 @@
-org\example\model\User.class
-org\example\controller\AuthController.class
-org\example\controller\AdminController.class
-org\example\InvoiceTrackingSystemApplication.class
-org\example\model\Invoice.class
-org\example\repository\UserRepository.class
 org\example\repository\InvoiceRepository.class
-org\example\controller\CustomerController.class
-org\example\config\SecurityConfig.class
-org\example\config\JwtTokenFilter.class
+org\example\InvoiceServiceApplication.class
+org\example\controller\InvoiceController.class
 org\example\service\InvoiceService.class
-org\example\service\UserService.class
+org\example\model\Invoice.class
