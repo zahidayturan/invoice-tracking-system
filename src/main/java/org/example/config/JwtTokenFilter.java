@@ -16,32 +16,32 @@ import java.io.IOException;
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
+    private final UserDetailsService userDetailsService;
+
     @Autowired
-    private UserDetailsService userDetailsService;
+    public JwtTokenFilter(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         String header = request.getHeader("Authorization");
-        if (header == null || !header.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
+        if (header != null && header.startsWith("Bearer ")) {
+            String token = header.substring(7);
+            try {
+                Claims claims = Jwts.parser()
+                        .setSigningKey("secret")
+                        .parseClaimsJws(token)
+                        .getBody();
+
+                // Set the claims in the SecurityContext if necessary
+
+            } catch (Exception e) {
+                // Handle exception (e.g., log the error)
+            }
         }
-
-        String token = header.substring(7);
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey("secret")
-                    .parseClaimsJws(token)
-                    .getBody();
-
-
-        } catch (Exception e) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
         filterChain.doFilter(request, response);
     }
 }
