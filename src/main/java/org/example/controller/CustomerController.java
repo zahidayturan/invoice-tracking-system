@@ -26,14 +26,17 @@ public class CustomerController {
     public String listCustomers(Model model) {
         List<Invoice> invoices = invoiceService.getAllInvoices();
 
-        invoices.sort(Comparator.comparing(Invoice::getId));
-
         Map<String, Long> customerInvoiceCount = invoices.stream()
                 .collect(Collectors.groupingBy(Invoice::getCustomerName, Collectors.counting()));
 
-        model.addAttribute("customerInvoiceCount", customerInvoiceCount);
+        List<Map.Entry<String, Long>> sortedCustomerInvoiceCount = customerInvoiceCount.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+
+        model.addAttribute("sortedCustomerInvoiceCount", sortedCustomerInvoiceCount);
         return "customers";
     }
+
 
 
     @GetMapping("/{customerName}")

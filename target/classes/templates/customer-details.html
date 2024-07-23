@@ -18,8 +18,9 @@
   <tbody>
   <tr th:each="invoice : ${invoices}">
     <td th:text="${invoice.id}"></td>
+
+    <form th:action="@{/customers/{customerName}/invoices/{id}/update(customerName=${customerName},id=${invoice.id})}" method="post">
     <td>
-      <form th:action="@{/customers/{customerName}/invoices/{id}/update(customerName=${customerName},id=${invoice.id})}" method="post">
         <input type="number" name="amount" th:value="${invoice.amount}" required />
     </td>
     <td>
@@ -39,7 +40,7 @@
 <form th:action="@{/invoices}" th:object="${invoice}" method="post">
   <div>
     <label for="customerName">Customer Name: <span th:text="${customerName}"></span></label>
-    <input type="text" id="customerName" th:field="*{customerName}" th:value="${customerName}" hidden />
+    <input type="hidden" id="customerName" name="customerName" th:value="${customerName}" />
   </div>
   <div>
     <label for="amount">Amount:</label>
@@ -53,6 +54,7 @@
     <button type="submit">Add Invoice For <span th:text="${customerName}"></span></button>
   </div>
 </form>
+
 <br>
 <a href="/customers">Back to Customers</a>
 <br>

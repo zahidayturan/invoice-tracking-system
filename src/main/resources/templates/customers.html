@@ -14,24 +14,20 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="entry : ${customerInvoiceCount}">
+    <tr th:each="entry : ${sortedCustomerInvoiceCount}">
         <td th:text="${entry.key}"></td>
         <td th:text="${entry.value}"></td>
         <td>
             <a th:href="@{/customers/{customerName}(customerName=${entry.key})}">View Details</a>
-            <form th:action="@{/customers/{customerName}/delete(customerName=${entry.key})}" method="post" style="display:inline;">
-                <button type="button" onclick="return confirmDelete()">Delete</button>
+            <form th:action="@{/customers/{customerName}/delete(customerName=${entry.key})}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete all invoices for this user?');">
+                <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
 <br>
 <a href="/invoices">Back to Invoices</a>
-<script>
-    function confirmDelete() {
-        return confirm('Are you sure you want to delete all invoices for this customer?');
-    }
-</script>
 </body>
 </html>
